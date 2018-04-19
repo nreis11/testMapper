@@ -1,0 +1,13 @@
+.selectable {
+    cursor: pointer;
+}
+
+.selected {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+mark {
+    background-color: yellow;
+    color: black;
+}

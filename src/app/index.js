@@ -3,13 +3,18 @@ import {render} from "react-dom";
 
 import {Header} from "./components/Header";
 import {Home} from "./components/Home";
+// import {ListItem} from "./components/ListItem";
+import {ListContainer} from "./components/ListContainer";
+
+import './index.css';
 
 class App extends React.Component {
     constructor() {
         super();
         this.state = {
-          homeLink: "Home"
+          homeLink: "Home",
         };
+
     }
 
     onGreet() {
@@ -41,6 +46,7 @@ class App extends React.Component {
                         />
                     </div>
                 </div>
+                <ListContainer />
             </div>
         );
     }
