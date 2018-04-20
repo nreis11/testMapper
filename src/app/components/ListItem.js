@@ -3,16 +3,12 @@ import React from 'react';
 export class ListItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { active: false};
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(e) {
-        console.log(this.props.id);
-        // this.setState({
-        //     active: true
-        // });
-        this.props.onClick(this.props.id);
+        console.log("id: ", this.props.id);
+        this.props.handleClick(this.props.id, this.props.isInternal);
     } 
 
     render() {

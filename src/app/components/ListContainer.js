@@ -4,36 +4,33 @@ import {ListItem} from './ListItem';
 export class ListContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            list: [
-                {id: 0, text: "Architecture", active: false},
-                {id: 1, text: "Programming", active: false},
-                {id: 2, text: "Finance", active: false}
-          ]
-        }
         this.eachListItem = this.eachListItem.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        // this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount(e) {
-
-        document.body.addEventListener('keydown', (e) => {
-            let key = e.keyCode;
-            let active = this.state.list.filter(item => item.active);
-            if (key === 32 && active.length) {
-                console.log(active);
-                this.handleClick(active[0].id + 1)
-            }
-        });
+        if (this.props.isInternal) {
+            document.body.addEventListener('keydown', (e) => {
+                let key = e.keyCode;
+                let active = this.props.list.filter(item => item.active);
+                if (key === 32 && active.length) {
+                    console.log("Active: ", active[0]);
+                    this.props.handleClick(active[0].id + 1, this.props.isInternal)
+                }
+            });
+        }
     }
 
-    handleClick(id) {
-        this.setState((prevState) => {
-            prevState.list.map(
-                item => item.id !== id ? item.active = false : item.active = true
-            )
-        })
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return this.props.list !== nextProps.list;
+    // }
+
+    // componentDidUpdate() {
+    //     console.log('UPDATED, isInternal: ', this.props.isInternal);
+    //     let active = this.props.list.filter(item => item.active);
+    //     console.log('ACTIVE: ', active);
+    //     this.props.onUpdate(active[0].id, this.props.isInternal);
+    // }
 
     eachListItem(item) {
         return (
@@ -41,13 +38,19 @@ export class ListContainer extends React.Component {
                       id={item.id}
                       text={item.text}
                       active={item.active}
-                      onClick={this.handleClick} />
+                      handleClick={this.props.handleClick}
+                      isInternal={this.props.isInternal} />
         )
     }
 
     render() {
+        const style= {
+            border: "solid",
+            padding: "20px 2px"
+        }
+
         return (
-            <ul>{this.state.list.map(this.eachListItem)}</ul>
+            <div style={style}><ul>{this.props.list.map(this.eachListItem)}</ul></div>
         )
     }
 }
